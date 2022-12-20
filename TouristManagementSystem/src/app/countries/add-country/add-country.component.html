@@ -1,0 +1,32 @@
+<div class="card list-group-item-dark bg-secondary shadow-lg margin">
+    <div class="card-body">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col">
+                    <p class="h3 fw-bold"><i class="fa fa-plus-circle">&nbsp;</i>Add Country Details</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <pre>{{tourist|json}}</pre> -->
+        <!--details section of country-->
+        <div class="container mt-4 col-md-auto">
+            <div class="row">
+                <div class="col-sm-8">
+                    <!-- post method for posting country data to server -->
+                    <form (submit)="postDetails()" (click)="testLog()">
+                        <div class="mb-2">
+                            <label>Country Name</label>
+                            <input type="text" [(ngModel)]="country.countryName" name="countryName"
+                                placeholder="country name" required class="form-control" required="true">
+                        </div>
+                        <div class="mb-2 mt-4">
+                            <input type="submit" class="btn btn-success" value="Save">
+                            <a routerLink="/country/view-country" class="btn btn-outline-dark text-white ms-3">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

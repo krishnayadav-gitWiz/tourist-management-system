@@ -1,0 +1,18 @@
+<!-- header section for project which is static all over project -->
+<div class="nav navbar navbar-dark bg-dark text-white navbar-expend-sm header">
+    <div class="container">
+        <div class="col-md-8">
+            <a routerLink="/" class="navbar-brand"><i class="fa fa-home">&nbsp;&nbsp;</i>Tourist Management</a>
+        </div>
+        <div class="col-md-2">
+            <!-- tourist details button -->
+            <a routerLink="/tourist/admin" class="btn btn-light" (click)="testLogTourist()" >
+                <i class="fa fa-eye">&nbsp;&nbsp;&nbsp;</i><b>Tourist Details</b></a>
+        </div>
+        <div class="col-md-1.5">
+            <!-- tourist details button -->
+            <a routerLink="/country/view-country" class="btn btn-light"  (click)="testLogCountry()" >
+                <i class="fa fa-eye">&nbsp;&nbsp;&nbsp;</i><b>Country Details</b></a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<!-- <pre>{{touristData | json}}</pre> -->
+<!-- <pre>{{countryData | json}}</pre>  -->
+
+<!-- card detail printing all data from country and tourist database -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="tourist.id" placeholder="search by ID"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <button type="button" (click)="search()" class="btn btn-dark text-white"><i
+                        class="fas fa-search text-white">&nbsp;&nbsp;&nbsp;</i>search by ID</button>
+            </div>
+            <!-- <div class="container" [hidden]="touristData.length>0 && countryData.length>0 "> -->
+            <div class="col-md-6">
+                <div class="card list-group-item-dark bg-secondary shadow-lg my-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img src="assets/tourist.jpg" alt="tourist" class="tourist-img">
+                            </div>
+                            <!-- div for displaying all country and tourist data -->
+                            <div class="col-sm-8">
+                                <ul class="list-group">
+                                    <!-- for displaying all  tourist data -->
+                                    <li class="list-group-item list-group-item" style="background-color: silver;">
+                                        First
+                                        Name: <span class="fw-bold">{{touristData.firstName | uppercase}}</span>
+                                    </li>
+                                    <li class="list-group-item list-group-item" style="background-color: silver;">
+                                        Last
+                                        Name:
+                                        <span class="fw-bold">{{touristData.lastName | uppercase}}</span>
+                                    </li>
+                                    <li class="list-group-item" style="background-color: silver;">Date of
+                                        Arrival: <span class="fw-bold">{{touristData.dateOfArrival | date}}</span>
+                                    </li>
+                                    <li class="list-group-item list-group-item" style="background-color: silver;">
+                                        Contact
+                                        Number: <span class="fw-bold">{{touristData.contactNo}}</span></li>
+                                    <!-- for displaying all  country data -->
+                                    <li class="list-group-item list-group-item" style="background-color: silver;">
+                                        Country
+                                        Number: <span class="fw-bold">{{countryData.countryName | titlecase}}</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="row mt-2">
+            <!-- back to privious page button -->
+            <div class="col">
+                <a routerLink="/tourist/admin" class="btn bg-secondary text-white"><i class="fa fa-arrow-circle-left"></i>
+                    Back</a>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+body{
+    font-family: 'Righteous', cursive !important;
+        background-color: #A9A9A9 !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Righteous', cursive; }

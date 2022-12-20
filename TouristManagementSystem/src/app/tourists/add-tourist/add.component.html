@@ -1,0 +1,129 @@
+<div class="card list-group-item-dark bg-secondary shadow-lg margin">
+    <div class="card-body">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col">
+                    <p class="h3 fw-bold"><i class="fa fa-plus-circle">&nbsp;</i>Add Tourist Details</p>
+                </div>
+            </div>
+        </div>
+
+        <!--start loading gif whenever page take time to load all data from server-->
+        <div *ngIf="loading">
+            <app-spinner></app-spinner>
+        </div>
+
+        <!-- error message when there is any type of error occurs -->
+        <div *ngIf="!loading && errorMessage">
+            <div class="container">
+                <div class="row">
+                    <p class="h4 text-danger fw-bold">{{errorMessage}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- <pre>{{tourist|json}}</pre> -->
+        <!--add tourist data details section-->
+        <div class="container mt-4 col-md-auto">
+            <div class="row">
+                <div class="col-sm-10">
+                    <!-- FormGroup is used with FormControl to track the value and validate the state of form control -->
+                    <form [formGroup]="touristForm">
+                        <div class="mb-2">
+                            <label>First Name</label>             
+                            <div class="form-group"> 
+                                <!-- css class for checking form validation                   -->
+                                      <input [class.is-invalid]="touristForm.get('firstName')?.invalid &&
+                                    touristForm.get('firstName')?.touched" formControlName="firstName" type="text"
+                                    [(ngModel)]="tourist.firstName" placeholder="name" class="form-control">           
+                                <!--     showing diffrent type of validation as per requirment using ngIf conditions   -->
+                                 <div
+                                    *ngIf="touristForm.get('firstName')?.invalid && touristForm.get('firstName')?.touched">
+                                             
+                                      <small *ngIf="touristForm.get('firstName')?.errors?.['required']"
+                                        class="text-white">*first name can't be empty</small>                   
+                                    <small *ngIf="touristForm.get('firstName')?.errors?.['maxlength']"
+                                        class="text-white">*first name can contain atmost 20 characters</small>         
+                                     <small *ngIf="touristForm.get('firstName')?.errors?.['pattern']"
+                                        class="text-white">*first name can only contains characters</small>       
+                                </div>               
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Last Name</label>             
+                            <div class="form-group">   
+                                <!-- css class for checking form validation                   -->                
+                                      <input [class.is-invalid]="touristForm.get('lastName')?.invalid &&
+                                    touristForm.get('lastName')?.touched" formControlName="lastName" type="text"
+                                    [(ngModel)]="tourist.lastName" placeholder="surname" class="form-control">         
+                                           
+                                <!--     showing diffrent type of validation as per requirment using ngIf conditions   --> 
+                                         
+                                 <div
+                                    *ngIf="touristForm.get('lastName')?.invalid && touristForm.get('lastName')?.touched">
+                                                    
+                                      <small *ngIf="touristForm.get('lastName')?.errors?.['required']"
+                                        class="text-white">*last name can't be empty</small>                   
+                                    <small *ngIf="touristForm.get('lastName')?.errors?.['maxlength']"
+                                        class="text-white">*last name can contain atmost 20 characters</small>         
+                                     <small *ngIf="touristForm.get('lastName')?.errors?.['pattern']"
+                                        class="text-white">*last name can only contains characters</small>             
+                                </div>               
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Date of Arrival</label>             
+                            <div class="form-group">     
+                                <!-- css class for checking form validation                   -->              
+                                      <input [class.is-invalid]="touristForm.get('dateOfArrival')?.invalid &&
+                                    touristForm.get('dateOfArrival')?.touched" formControlName="dateOfArrival"
+                                    type="date" [(ngModel)]="tourist.dateOfArrival" placeholder="date"
+                                    class="form-control"> 
+                                <!--     showing diffrent type of validation as per requirment using ngIf conditions   -->
+                                                               
+                                 <div
+                                    *ngIf="touristForm.get('dateOfArrival')?.invalid && touristForm.get('dateOfArrival')?.touched">
+                                     
+                                </div>               
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Contact Number</label>
+                            <div class="form-group"> 
+                                <!-- css class for checking form validation                   -->                  
+                                <input
+                                    [class.is-invalid]="touristForm.get('contactNo')?.invalid && touristForm.get('contactNo')?.touched"
+                                    type="number" maxlength="10"
+                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    [(ngModel)]="tourist.contactNo" formControlName="contactNo" class="form-control"
+                                    placeholder="contact" required="true">
+                            </div>
+                        </div>
+                        <div class="mb-2 mt-4">
+                            <label>Select Country</label>
+                            <div class="form-group">                   
+                                <!-- css class for checking form validation                   -->
+                                <select
+                                    [class.is-invalid]="touristForm.get('countryId')?.invalid && touristForm.get('countryId')?.touched"
+                                    [(ngModel)]="tourist.countryId" formControlName="countryId" class="form-control"
+                                    *ngIf="country.length>0" required="true">
+                                    <option>Select Country</option>
+                                    <option [value]="ele.id" *ngFor="let ele of country">{{ele.countryName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-2 mt-4">
+                            <!-- method for posting data to server using service in ts file      -->
+                            <input
+                            [disabled]="!touristForm.valid" (click)="postDetails()" (click)="testLog()" class="btn btn-success" value="Save">
+                            <!-- back button for priviour page -->
+                            <a routerLink="/tourist/admin" class="btn btn-outline-dark text-white ms-3">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

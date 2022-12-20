@@ -1,0 +1,76 @@
+<div class="card list-group-item-dark bg-secondary shadow-lg margin">
+    <div class="card-body">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col">
+                    <p class="h3 fw-bold"><i class="fa fa-pen">&nbsp;</i>Update Tourist Details</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!--start loading gif whenever page take time to load all data from server-->
+        <div *ngIf="loading">
+            <app-spinner></app-spinner>
+        </div>
+
+        <!-- error message when there is any type of error occurs -->
+        <div *ngIf="!loading && errorMessage">
+            <div class="container">
+                <div class="row">
+                    <p class="h4 text-danger fw-bold">{{errorMessage}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- <pre>{{tourist | json}}</pre> -->
+        <!--update details section for tourist data-->
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-sm-10">
+                    <!-- this method will update all details in database on the basic of id for perticular tourist -->
+                    <form (submit)="updateTourist()" >
+                        <div class="mb-2">
+                            <label>First Name</label>
+                            <!-- [value] ....this will bind data to perticular input tag on the basic of id -->
+                            <input [(ngModel)]="tourist.firstName" class="form-control" [value]="tourist.firstName"
+                                name="firstName" placeholder="First Name" required="true" type="text">
+                        </div>
+                        <div class="mb-2">
+                            <label>Last Name</label>
+                            <input [(ngModel)]="tourist.lastName" required="true" [value]="tourist.lastName"
+                                name="lastName" type="text" class="form-control" placeholder="Last Name">
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Date of Arrival</label>
+                            <input [(ngModel)]="tourist.dateOfArrival" required="true" [value]="tourist.dateOfArrival"
+                                name="dateOfArrival" type="date" class="form-control" placeholder="Date of Arrival">
+                        </div>
+                        <div class="mb-2">
+                            <label>Contact Number</label>
+                            <input [(ngModel)]="tourist.contactNo" maxlength="10"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                required="true" [value]="tourist.contactNo" name="contactNo" type="number"
+                                class="form-control" placeholder="Contact Number">
+                        </div>
+                        <div class="mb-2">
+                            <label>Country Name</label>
+                            <select class="form-control" [(ngModel)]="tourist.countryId" required="true"
+                                [value]="tourist.countryId" name="countryId">
+                                <option value="">Select Country</option>
+                                <option *ngFor="let ele of country" [value]="ele.id">{{ele.countryName}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-2 mt-4" (click)="testLog()">
+                            <!-- update button -->
+                            <input type="submit" class="btn btn-success" value="Update">
+                            <!-- back button -->
+                            <a routerLink="/tourist/admin" class="btn btn-outline-dark text-white ms-3 ">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

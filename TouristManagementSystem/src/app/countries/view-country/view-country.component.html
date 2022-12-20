@@ -1,0 +1,47 @@
+<div class="container mt-4" style="margin-bottom: 2%;">
+    <div class="row">
+        <div class="col">
+            <p class="h3 fw-bold">Tourist Management System &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        </div>
+
+    </div>
+</div>
+<!-- loading gif -->
+<div *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+
+<!-- error message when there is any type of error occurs -->
+<div *ngIf="!loading && errorMessage">
+    <div class="container">
+        <div class="row">
+            <p class="h4 text-danger fw-bold">{{errorMessage}}</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- <pre>{{country | json}}</pre> -->
+<!-- card detail of country -->
+<input type="text" [(ngModel)]="searchValue" class="form-control" placeholder="search country by ID or NAME "
+    style="margin-left: 6%; width: 43%;">
+<div class="container mt-4" *ngIf=" country.length > 0">
+    <div class="row">
+        <!-- loop for showing all country data -->
+        <div class="col-md-6" *ngFor="let ele of country | search:searchValue" (click)="testLog()">
+            <div class="card list-group-item-dark bg-secondary shadow-lg my-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <ul class="list-group">
+                                <li class="list-group-item" style="background-color: silver;">Country Name: <span
+                                        class="fw-bold">{{ele.countryName | titlecase}}</span></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

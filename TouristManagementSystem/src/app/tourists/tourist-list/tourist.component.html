@@ -1,0 +1,104 @@
+<!-- heading div for main page  -->
+<div class="container mt-4" style="margin-bottom: 2%;">
+    <div class="row">
+        <div class="col">
+            <p class="h3 fw-bold">Tourist Management System &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        </div>
+        <div class="col-md-2">
+            <!-- add data tourist data button -->
+            <a routerLink="/tourist/add" class="btn btn-outline-success">
+                <i class="fa fa-plus-circle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i><b>Add Tourist </b></a>
+        </div>
+
+        <div class="col-md-2">
+            <!-- add data country data button -->
+            <a routerLink="/country/add-country" class="btn btn-outline-success">
+                <i class="fa fa-plus-circle">&nbsp;&nbsp;&nbsp;</i><b>Add Country</b></a>
+        </div>
+    </div>
+</div>
+<!--start loading gif whenever page take time to load all data from server-->
+<div *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+
+<!-- error message when there is any type of error occurs -->
+<div *ngIf="!loading && errorMessage">
+    <div class="container">
+        <div class="row">
+            <p class="h4 text-danger fw-bold">{{errorMessage}}</p>
+        </div>
+    </div>
+</div>
+<!-- <pre>{{tourist | json}}</pre> -->
+<div class="container mt-4" style="margin-bottom: 2%;" >
+    <div class="row">
+        <div class="col">
+            <input type="text" [(ngModel)]="searchValue" class="form-control"
+                placeholder="search tourist by ID or NAME">
+        </div>
+        <div class="col-md-7" style="margin-right: -9%;">
+            <!-- search tourist data by id  -->
+            <div style="margin-left: 40%;">
+            <a routerLink="/search/:touristId" class="btn btn-outline-dark">
+                <i class="fas fa-search text-black">&nbsp;&nbsp;&nbsp;</i><b>Search Tourist</b></a></div>
+        </div>
+    </div>
+</div>
+<!-- card detail for printing all tourist details -->
+<div class="container mt-4" *ngIf="!loading && tourist.length > 0;else elseBlock">
+    <!-- button for deteting mutiple or all data from server -->
+    <button type="button"  class="btn btn-outline-danger mb-3" (click)="deleteTourists()">Delete Selected
+        Tourist(s)</button>
+    <!-- checkbox for checking mutiple or all data which is to be deteted from server -->
+    <div class="col-md-6">
+        <input type="checkbox" [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)">
+    </div>
+    <div class="row">
+        <!-- for loop for printing all data from server to card and search pipe which will used for searching data -->
+        <div class="col-md-6" *ngFor="let ele of tourist | search:searchValue;let i=index;">
+            <div class="card list-group-item-dark bg-secondary shadow-lg my-3">
+                <div class="card-body">
+                    <!-- checkbox for checking one data which is to be deteted from server -->
+                    <input type="checkbox" value="{{ele.id}}" [(ngModel)]="tourist[i].checked">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <img src="assets/tourist.jpg" alt="tourist" class="tourist-img">
+                        </div>
+                        <!-- printin all data in required formate using inbuilt pipe -->
+                        <div class="col-sm-7">
+                            <ul class="list-group">
+                                <li class="list-group-item " style="background-color: silver;">First Name: <span
+                                        class="fw-bold">{{ele.firstName | uppercase}}</span></li>
+                                <li class="list-group-item" style="background-color: silver;">Last Name: <span
+                                        class="fw-bold">{{ele.lastName | uppercase}}</span></li>
+                                <li class="list-group-item" style="background-color: silver;">Date of Arrival: <span
+                                        class="fw-bold">{{ele.dateOfArrival | date}}</span></li>
+                                <li class="list-group-item" style="background-color: silver;">Contact Number: <span
+                                        class="fw-bold">{{ele.contactNo}}</span></li>
+                            </ul>
+                        </div>
+                        <!-- action button or tag like view ,update,delete perticular data from server -->
+                        <div class="col-sm-2 d-flex flex-column justify-content-center align-items-center">
+                            <!-- button for checking perticular data from server -->
+                            <a routerLink="/tourist/view/{{ele.id}}" class="btn btn-dark mt-2 rounded-circle"><i
+                                    class="fa fa-eye text-white"></i></a>
+                            <!-- button for updating perticular data from server -->
+                            <a routerLink="/tourist/edit/{{ele.id}}" class="btn btn-success mt-2 rounded-circle"><i
+                                    class="fa fa-pen"></i></a>
+                            <!-- button for deleting perticular data from server -->
+                            <button (click)="deleteData(ele.id)"
+                                class="btn btn-danger mt-2 rounded-circle text-white"><i
+                                    class=" fa-solid fa-trash-can my-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #elseBlock>
+    <div style="color: red; margin-left: 6%; margin-top: 2%; font-size: 30px;">No record found</div>
+</ng-template>
+<!-- </div> -->
